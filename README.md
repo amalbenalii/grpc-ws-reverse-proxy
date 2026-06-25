@@ -1,102 +1,36 @@
-# grpc-ws-reverse-proxy
-Reverse Proxy WebSocket avec microservice gRPC
 
-##  Objectifs
-L'objectif de ce projet est de mettre en place une infrastructure permettant d'échanger des messages en temps réel via un service gRPC et un proxy WebSocket. Cela permet de :
--  Définir un service gRPC via un fichier .proto
--  Développer un serveur gRPC en Node.js pour gérer les communications
--  Mettre en place un reverse proxy WebSocket pour relayer les messages entre clients et serveur gRPC
 
-## Outils utilisés
-- **Node.js**
-- **Protocol Buffers (Protobuf)**
-- **@grpc/grpc-js**
-- **@grpc/proto-loader**
-- **ws (WebSocket)**
+## Getting Started
 
----
+First, run the development server:
 
-## Etape 1: Installation
-
-### 1. Cloner le projet
 ```bash
-git clone https://github.com/amalbenalii/grpc-ws-reverse-proxy.git
-cd grpc-ws-reverse-proxy
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
 ```
 
-###  2. Initialiser le projet Node.js
-```bash
-npm init -y
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-```
+You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
 
-###  3. Installer les dépendances
-```bash
-npm install @grpc/grpc-js @grpc/proto-loader ws
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-```
----
-##  Structure du projet
-```
-grpc-ws-reverse-proxy/
-├── client.html               # Client Web simple pour tester la connexion WebSocket
-├── chat.proto                # Définition du service gRPC (Protobuf)
-├── server.js                 # Serveur gRPC qui implémente le service Chat
-├── proxy.js                  # Reverse Proxy WebSocket qui relaie les messages vers gRPC
-├── package.json              # Dépendances et configuration du projet Node.js
-└── README.md                 # Documentation du projet
+## Learn More
 
-```
----
-##  Etape 2: Lancement
+To learn more about Next.js, take a look at the following resources:
 
-1. Démarrer le serveur gRPC :
-```bash
-node server.js
-```
-Le serveur démarre sur 0.0.0.0:50051 et mplémente 2 méthodes principales :
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-- **GetUser**: Récupère les informations d'un utilisateur
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-- **Chat**: Gère le streaming bidirectionnel des messages
+## Deploy on Vercel
 
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-2. Démarrer le reverse proxy WebSocket :
-```bash
-node proxy.js
-```
-Le proxy est accessible via ws://localhost:8080 qui fait le lien entre WebSocket et gRPC pour échanger les messages
-
----
-
-##  Etape 3: Test avec Postman
-
-1. Ouvrir Postman et créer une requête WebSocket sur ws://localhost:8080
-2. Envoyer un message JSON :
-```json
-{
-  "chat_message": {
-    "id": "msg1",
-    "room_id": "room1",
-    "sender_id": "client1",
-    "content": "Hello World !"
-  }
-}
-```
-
----
-
-## Fonctionnalités supplémentaires
-
-### 1. Historique des messages
-- Ajoute d' une méthode `GetChatHistory` dans `chat.proto`
-- Stockage des messages en mémoire dans server.js
-- Adaptation de proxy pour gérer cette nouvelle méthode
-
-### 2. Client Web 
-Une page HTML avec :
-- Formulaire d'envoi de messages
-- Affichage des messages en temps réel
-- Connexion WebSocket à `ws://localhost:8080`
-- Fonctionnement: Ouvrir client.html dans un navigateur et tester l'envoi de messages.
-
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
